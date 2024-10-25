@@ -34,10 +34,7 @@ export class BooksService {
     }
   ]
 
-
-
   create(createBookDto: CreateBookDto) {
-
 
     let data = {
       id: this.#myBooks.length + 1,
@@ -60,6 +57,10 @@ export class BooksService {
   }
 
   findOne(id: number) {
+    if(!this.#myBooks.find((book) => book.id == id))
+      {
+        throw new NotFoundException("No product with ID");
+      }
     return JSON.stringify( this.#myBooks.find((book) => book.id == id))
   }
 
@@ -95,6 +96,10 @@ export class BooksService {
 
   remove(id: number) {
 
+    if(!this.#myBooks.find((book) => book.id == id))
+      {
+        throw new NotFoundException("No product with ID");
+      }
     for(let i = 0; i < this.#myBooks.length; i++ )
       {
         if(this.#myBooks[i].id == id)
